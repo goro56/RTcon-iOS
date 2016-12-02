@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001148001DF160A2005DC0D5 /* Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 001147FF1DF15B37005DC0D5 /* Bridging-Header.h */; };
+		001148021DF160CF005DC0D5 /* SkyWay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 001148011DF160CF005DC0D5 /* SkyWay.framework */; };
 		005263F81DF0808100A6E3CB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005263F71DF0808100A6E3CB /* AudioToolbox.framework */; };
 		005263FA1DF0808F00A6E3CB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005263F91DF0808F00A6E3CB /* AVFoundation.framework */; };
 		005263FC1DF080E700A6E3CB /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005263FB1DF080E700A6E3CB /* CoreMedia.framework */; };
@@ -20,10 +22,10 @@
 		0052640C1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0052640B1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd */; };
 		0052640E1DF0813900A6E3CB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0052640D1DF0813900A6E3CB /* libsqlite3.tbd */; };
 		005264101DF0814700A6E3CB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0052640F1DF0814700A6E3CB /* libicucore.tbd */; };
-		005264141DF081D300A6E3CB /* SkyWay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005264131DF081D300A6E3CB /* SkyWay.framework */; };
+		00C198361DF1DD1C006CAB08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00C198351DF1DD1C006CAB08 /* Main.storyboard */; };
+		00E0E3621DF16BE200B66022 /* PeerListVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0E3611DF16BE200B66022 /* PeerListVIewController.swift */; };
 		843332FB1DC07885004E3F54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843332FA1DC07885004E3F54 /* AppDelegate.swift */; };
 		843332FD1DC07885004E3F54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843332FC1DC07885004E3F54 /* ViewController.swift */; };
-		843333001DC07885004E3F54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843332FE1DC07885004E3F54 /* Main.storyboard */; };
 		843333021DC07885004E3F54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843333011DC07885004E3F54 /* Assets.xcassets */; };
 		843333051DC07885004E3F54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843333031DC07885004E3F54 /* LaunchScreen.storyboard */; };
 		843333101DC07885004E3F54 /* RTconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433330F1DC07885004E3F54 /* RTconTests.swift */; };
@@ -48,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		001147FF1DF15B37005DC0D5 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		001148011DF160CF005DC0D5 /* SkyWay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyWay.framework; path = RTcon/SkyWay.framework; sourceTree = "<group>"; };
 		005263F71DF0808100A6E3CB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		005263F91DF0808F00A6E3CB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		005263FB1DF080E700A6E3CB /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -61,12 +65,12 @@
 		0052640B1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		0052640D1DF0813900A6E3CB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0052640F1DF0814700A6E3CB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
-		005264111DF081C500A6E3CB /* Documents */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Documents; path = ../..; sourceTree = "<group>"; };
 		005264131DF081D300A6E3CB /* SkyWay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyWay.framework; path = "../skyway-ios-sdk/SkyWay.framework"; sourceTree = "<group>"; };
+		00C198351DF1DD1C006CAB08 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		00E0E3611DF16BE200B66022 /* PeerListVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerListVIewController.swift; sourceTree = "<group>"; };
 		843332F71DC07885004E3F54 /* RTcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RTcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		843332FA1DC07885004E3F54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		843332FC1DC07885004E3F54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		843332FF1DC07885004E3F54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		843333011DC07885004E3F54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		843333041DC07885004E3F54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		843333061DC07885004E3F54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				005264141DF081D300A6E3CB /* SkyWay.framework in Frameworks */,
+				001148021DF160CF005DC0D5 /* SkyWay.framework in Frameworks */,
 				005264101DF0814700A6E3CB /* libicucore.tbd in Frameworks */,
 				0052640E1DF0813900A6E3CB /* libsqlite3.tbd in Frameworks */,
 				0052640C1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd in Frameworks */,
@@ -120,8 +124,8 @@
 		005263F61DF0808100A6E3CB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				001148011DF160CF005DC0D5 /* SkyWay.framework */,
 				005264131DF081D300A6E3CB /* SkyWay.framework */,
-				005264111DF081C500A6E3CB /* Documents */,
 				0052640F1DF0814700A6E3CB /* libicucore.tbd */,
 				0052640D1DF0813900A6E3CB /* libsqlite3.tbd */,
 				0052640B1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd */,
@@ -165,10 +169,12 @@
 			children = (
 				843332FA1DC07885004E3F54 /* AppDelegate.swift */,
 				843332FC1DC07885004E3F54 /* ViewController.swift */,
-				843332FE1DC07885004E3F54 /* Main.storyboard */,
 				843333011DC07885004E3F54 /* Assets.xcassets */,
 				843333031DC07885004E3F54 /* LaunchScreen.storyboard */,
 				843333061DC07885004E3F54 /* Info.plist */,
+				001147FF1DF15B37005DC0D5 /* Bridging-Header.h */,
+				00E0E3611DF16BE200B66022 /* PeerListVIewController.swift */,
+				00C198351DF1DD1C006CAB08 /* Main.storyboard */,
 			);
 			path = RTcon;
 			sourceTree = "<group>";
@@ -259,6 +265,7 @@
 				TargetAttributes = {
 					843332F61DC07885004E3F54 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = Y6Z37PCVM3;
 						ProvisioningStyle = Automatic;
 					};
 					8433330A1DC07885004E3F54 = {
@@ -300,7 +307,7 @@
 			files = (
 				843333051DC07885004E3F54 /* LaunchScreen.storyboard in Resources */,
 				843333021DC07885004E3F54 /* Assets.xcassets in Resources */,
-				843333001DC07885004E3F54 /* Main.storyboard in Resources */,
+				00C198361DF1DD1C006CAB08 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +332,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				001148001DF160A2005DC0D5 /* Bridging-Header.h in Sources */,
 				843332FD1DC07885004E3F54 /* ViewController.swift in Sources */,
+				00E0E3621DF16BE200B66022 /* PeerListVIewController.swift in Sources */,
 				843332FB1DC07885004E3F54 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,14 +371,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		843332FE1DC07885004E3F54 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				843332FF1DC07885004E3F54 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		843333031DC07885004E3F54 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -426,6 +427,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -468,6 +470,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -478,10 +481,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Y6Z37PCVM3;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RTcon",
+				);
 				INFOPLIST_FILE = RTcon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = info.gorojpcl.RTcon;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = info.gorojpcl1.RTcon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "./RTcon/Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -490,10 +501,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Y6Z37PCVM3;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RTcon",
+				);
 				INFOPLIST_FILE = RTcon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = info.gorojpcl.RTcon;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = info.gorojpcl1.RTcon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "./RTcon/Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
