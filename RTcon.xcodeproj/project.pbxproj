@@ -37,21 +37,6 @@
 
 /* Begin PBXFileReference section */
 		001147FF1DF15B37005DC0D5 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		001148011DF160CF005DC0D5 /* SkyWay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyWay.framework; path = RTcon/SkyWay.framework; sourceTree = "<group>"; };
-		005263F71DF0808100A6E3CB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		005263F91DF0808F00A6E3CB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		005263FB1DF080E700A6E3CB /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		005263FD1DF080EE00A6E3CB /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		005263FF1DF080F500A6E3CB /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-		005264011DF080FC00A6E3CB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		005264031DF0810300A6E3CB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		005264051DF0810C00A6E3CB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		005264071DF0811500A6E3CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		005264091DF0812300A6E3CB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		0052640B1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
-		0052640D1DF0813900A6E3CB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		0052640F1DF0814700A6E3CB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
-		005264131DF081D300A6E3CB /* SkyWay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyWay.framework; path = "../skyway-ios-sdk/SkyWay.framework"; sourceTree = "<group>"; };
 		00C198351DF1DD1C006CAB08 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		00E0E3611DF16BE200B66022 /* PeerListVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerListVIewController.swift; sourceTree = "<group>"; };
 		843332F71DC07885004E3F54 /* RTcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RTcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,28 +78,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		005263F61DF0808100A6E3CB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				001148011DF160CF005DC0D5 /* SkyWay.framework */,
-				005264131DF081D300A6E3CB /* SkyWay.framework */,
-				0052640F1DF0814700A6E3CB /* libicucore.tbd */,
-				0052640D1DF0813900A6E3CB /* libsqlite3.tbd */,
-				0052640B1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd */,
-				005264091DF0812300A6E3CB /* libc++.tbd */,
-				005264071DF0811500A6E3CB /* SystemConfiguration.framework */,
-				005264051DF0810C00A6E3CB /* GLKit.framework */,
-				005264031DF0810300A6E3CB /* Foundation.framework */,
-				005264011DF080FC00A6E3CB /* CoreGraphics.framework */,
-				005263FF1DF080F500A6E3CB /* VideoToolbox.framework */,
-				005263FD1DF080EE00A6E3CB /* CoreVideo.framework */,
-				005263FB1DF080E700A6E3CB /* CoreMedia.framework */,
-				005263F91DF0808F00A6E3CB /* AVFoundation.framework */,
-				005263F71DF0808100A6E3CB /* AudioToolbox.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		843332EE1DC07884004E3F54 = {
 			isa = PBXGroup;
 			children = (
@@ -122,7 +85,6 @@
 				8433330E1DC07885004E3F54 /* RTconTests */,
 				843333191DC07885004E3F54 /* RTconUITests */,
 				843332F81DC07885004E3F54 /* Products */,
-				005263F61DF0808100A6E3CB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
