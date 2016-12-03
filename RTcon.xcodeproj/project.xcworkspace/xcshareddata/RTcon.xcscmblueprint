@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "BA69952D1D011B0FB9B870C3344C350B2734B87D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "BA69952D1D011B0FB9B870C3344C350B2734B87D" : 9223372036854775807,
+    "78C7373AABFE6869548D9619D6C5A9B8EC38DCD4" : 9223372036854775807,
+    "03DBC6F8EED082592FEAD8707644D204E04B707E" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C33FE7BE-59B5-47C2-9A53-044D4AD4C59F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "BA69952D1D011B0FB9B870C3344C350B2734B87D" : "RTcon-iOS\/",
+    "78C7373AABFE6869548D9619D6C5A9B8EC38DCD4" : "RTcon-browser\/",
+    "03DBC6F8EED082592FEAD8707644D204E04B707E" : "webrtc-handson-native\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "RTcon",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "RTcon.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/skyway\/webrtc-handson-native.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "03DBC6F8EED082592FEAD8707644D204E04B707E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Takeru480\/RTcon-browser.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "78C7373AABFE6869548D9619D6C5A9B8EC38DCD4"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/goro56\/RTcon-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BA69952D1D011B0FB9B870C3344C350B2734B87D"
+    }
+  ]
+}
