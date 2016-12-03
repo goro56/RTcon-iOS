@@ -8,20 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		001148001DF160A2005DC0D5 /* Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 001147FF1DF15B37005DC0D5 /* Bridging-Header.h */; };
-		001148021DF160CF005DC0D5 /* SkyWay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 001148011DF160CF005DC0D5 /* SkyWay.framework */; };
-		005263F81DF0808100A6E3CB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005263F71DF0808100A6E3CB /* AudioToolbox.framework */; };
-		005263FA1DF0808F00A6E3CB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005263F91DF0808F00A6E3CB /* AVFoundation.framework */; };
-		005263FC1DF080E700A6E3CB /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005263FB1DF080E700A6E3CB /* CoreMedia.framework */; };
-		005263FE1DF080EE00A6E3CB /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005263FD1DF080EE00A6E3CB /* CoreVideo.framework */; };
-		005264001DF080F500A6E3CB /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005263FF1DF080F500A6E3CB /* VideoToolbox.framework */; };
-		005264021DF080FC00A6E3CB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005264011DF080FC00A6E3CB /* CoreGraphics.framework */; };
-		005264041DF0810300A6E3CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005264031DF0810300A6E3CB /* Foundation.framework */; };
-		005264061DF0810C00A6E3CB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005264051DF0810C00A6E3CB /* GLKit.framework */; };
-		005264081DF0811500A6E3CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005264071DF0811500A6E3CB /* SystemConfiguration.framework */; };
-		0052640A1DF0812300A6E3CB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 005264091DF0812300A6E3CB /* libc++.tbd */; };
-		0052640C1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0052640B1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd */; };
-		0052640E1DF0813900A6E3CB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0052640D1DF0813900A6E3CB /* libsqlite3.tbd */; };
-		005264101DF0814700A6E3CB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0052640F1DF0814700A6E3CB /* libicucore.tbd */; };
 		00C198361DF1DD1C006CAB08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00C198351DF1DD1C006CAB08 /* Main.storyboard */; };
 		00E0E3621DF16BE200B66022 /* PeerListVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0E3611DF16BE200B66022 /* PeerListVIewController.swift */; };
 		843332FB1DC07885004E3F54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843332FA1DC07885004E3F54 /* AppDelegate.swift */; };
@@ -87,20 +73,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				001148021DF160CF005DC0D5 /* SkyWay.framework in Frameworks */,
-				005264101DF0814700A6E3CB /* libicucore.tbd in Frameworks */,
-				0052640E1DF0813900A6E3CB /* libsqlite3.tbd in Frameworks */,
-				0052640C1DF0812E00A6E3CB /* libstdc++.6.0.9.tbd in Frameworks */,
-				0052640A1DF0812300A6E3CB /* libc++.tbd in Frameworks */,
-				005264081DF0811500A6E3CB /* SystemConfiguration.framework in Frameworks */,
-				005264061DF0810C00A6E3CB /* GLKit.framework in Frameworks */,
-				005264041DF0810300A6E3CB /* Foundation.framework in Frameworks */,
-				005264021DF080FC00A6E3CB /* CoreGraphics.framework in Frameworks */,
-				005264001DF080F500A6E3CB /* VideoToolbox.framework in Frameworks */,
-				005263FE1DF080EE00A6E3CB /* CoreVideo.framework in Frameworks */,
-				005263FC1DF080E700A6E3CB /* CoreMedia.framework in Frameworks */,
-				005263FA1DF0808F00A6E3CB /* AVFoundation.framework in Frameworks */,
-				005263F81DF0808100A6E3CB /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
