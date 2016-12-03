@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		001148001DF160A2005DC0D5 /* Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 001147FF1DF15B37005DC0D5 /* Bridging-Header.h */; };
 		00C198361DF1DD1C006CAB08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00C198351DF1DD1C006CAB08 /* Main.storyboard */; };
-		00E0E3621DF16BE200B66022 /* PeerListVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0E3611DF16BE200B66022 /* PeerListVIewController.swift */; };
+		00E0E3621DF16BE200B66022 /* PeerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0E3611DF16BE200B66022 /* PeerListViewController.swift */; };
 		843332FB1DC07885004E3F54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843332FA1DC07885004E3F54 /* AppDelegate.swift */; };
 		843332FD1DC07885004E3F54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843332FC1DC07885004E3F54 /* ViewController.swift */; };
 		843333021DC07885004E3F54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843333011DC07885004E3F54 /* Assets.xcassets */; };
@@ -29,6 +29,11 @@
 		84B517921DF2FE7900C571BB /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B517911DF2FE7900C571BB /* libstdc++.6.0.9.tbd */; };
 		84B517941DF2FE8200C571BB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B517931DF2FE8200C571BB /* libsqlite3.tbd */; };
 		84B517961DF2FE8D00C571BB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B517951DF2FE8D00C571BB /* libicucore.tbd */; };
+		84F1EE621DF315D00083D396 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1EE611DF315D00083D396 /* FirstViewController.swift */; };
+		84F1EE641DF318020083D396 /* DevicesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1EE631DF318020083D396 /* DevicesListTableViewController.swift */; };
+		84F1EE661DF319B50083D396 /* BluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1EE651DF319B50083D396 /* BluetoothConnection.swift */; };
+		84F1EE6A1DF327820083D396 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F1EE691DF327820083D396 /* CoreBluetooth.framework */; };
+		84F1EE6C1DF34C980083D396 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1EE6B1DF34C980083D396 /* CallViewController.swift */; };
 		E2008FAB21F2C2E2D9FB4009 /* libPods-RTcon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58AEF7BBF77D0A56A5AE997F /* libPods-RTcon.a */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +57,7 @@
 /* Begin PBXFileReference section */
 		001147FF1DF15B37005DC0D5 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		00C198351DF1DD1C006CAB08 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		00E0E3611DF16BE200B66022 /* PeerListVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerListVIewController.swift; sourceTree = "<group>"; };
+		00E0E3611DF16BE200B66022 /* PeerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerListViewController.swift; sourceTree = "<group>"; };
 		10E00401D14750C876E097D9 /* Pods-RTcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RTcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RTcon/Pods-RTcon.debug.xcconfig"; sourceTree = "<group>"; };
 		58AEF7BBF77D0A56A5AE997F /* libPods-RTcon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RTcon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		843332F71DC07885004E3F54 /* RTcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RTcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +85,11 @@
 		84B517911DF2FE7900C571BB /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		84B517931DF2FE8200C571BB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		84B517951DF2FE8D00C571BB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		84F1EE611DF315D00083D396 /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		84F1EE631DF318020083D396 /* DevicesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevicesListTableViewController.swift; sourceTree = "<group>"; };
+		84F1EE651DF319B50083D396 /* BluetoothConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothConnection.swift; sourceTree = "<group>"; };
+		84F1EE691DF327820083D396 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		84F1EE6B1DF34C980083D396 /* CallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		D0A6EDA52D35A989A91BD0B5 /* Pods-RTcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RTcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-RTcon/Pods-RTcon.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F1EE6A1DF327820083D396 /* CoreBluetooth.framework in Frameworks */,
 				84B517961DF2FE8D00C571BB /* libicucore.tbd in Frameworks */,
 				84B517941DF2FE8200C571BB /* libsqlite3.tbd in Frameworks */,
 				84B517921DF2FE7900C571BB /* libstdc++.6.0.9.tbd in Frameworks */,
@@ -162,8 +173,12 @@
 				843333031DC07885004E3F54 /* LaunchScreen.storyboard */,
 				843333061DC07885004E3F54 /* Info.plist */,
 				001147FF1DF15B37005DC0D5 /* Bridging-Header.h */,
-				00E0E3611DF16BE200B66022 /* PeerListVIewController.swift */,
+				00E0E3611DF16BE200B66022 /* PeerListViewController.swift */,
 				00C198351DF1DD1C006CAB08 /* Main.storyboard */,
+				84F1EE611DF315D00083D396 /* FirstViewController.swift */,
+				84F1EE651DF319B50083D396 /* BluetoothConnection.swift */,
+				84F1EE631DF318020083D396 /* DevicesListTableViewController.swift */,
+				84F1EE6B1DF34C980083D396 /* CallViewController.swift */,
 			);
 			path = RTcon;
 			sourceTree = "<group>";
@@ -189,6 +204,7 @@
 		84B5177C1DF2FE2600C571BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84F1EE691DF327820083D396 /* CoreBluetooth.framework */,
 				84B517951DF2FE8D00C571BB /* libicucore.tbd */,
 				84B517931DF2FE8200C571BB /* libsqlite3.tbd */,
 				84B517911DF2FE7900C571BB /* libstdc++.6.0.9.tbd */,
@@ -393,9 +409,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F1EE621DF315D00083D396 /* FirstViewController.swift in Sources */,
+				84F1EE641DF318020083D396 /* DevicesListTableViewController.swift in Sources */,
 				001148001DF160A2005DC0D5 /* Bridging-Header.h in Sources */,
+				84F1EE661DF319B50083D396 /* BluetoothConnection.swift in Sources */,
 				843332FD1DC07885004E3F54 /* ViewController.swift in Sources */,
-				00E0E3621DF16BE200B66022 /* PeerListVIewController.swift in Sources */,
+				00E0E3621DF16BE200B66022 /* PeerListViewController.swift in Sources */,
+				84F1EE6C1DF34C980083D396 /* CallViewController.swift in Sources */,
 				843332FB1DC07885004E3F54 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,7 +575,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = info.gorojpcl1.RTcon;
+				PRODUCT_BUNDLE_IDENTIFIER = info.gorojpcl.RTcon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./RTcon/Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -579,7 +599,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = info.gorojpcl1.RTcon;
+				PRODUCT_BUNDLE_IDENTIFIER = info.gorojpcl.RTcon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./RTcon/Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
