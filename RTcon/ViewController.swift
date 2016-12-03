@@ -12,9 +12,6 @@ import CoreBluetooth
 import Foundation
 import AVFoundation
 
-
-
-
 class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     var centralManager: CBCentralManager!
@@ -31,12 +28,76 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     fileprivate var _bEstablished: Bool = false
     fileprivate var _listPeerIds: Array<String> = []
     
-    //data
+    // data
     fileprivate var _data: SKWDataConnection?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.view.backgroundColor = UIColor.white
+        
+        setupUI()
+        
+        if nil != self.navigationController {
+            self.navigationController?.delegate = self
+        }
+        
+        /* Skyway 関連 */
+        
+        // サーバへ接続
+        // APIキー、ドメインを設定
+        let option: SKWPeerOption = SKWPeerOption.init();
+        option.key = "1bb5e4fc-4f56-4ee0-89dc-f36ec07aa7e5"
+        option.domain = "localhost"
+        
+        // Peerオブジェクトのインスタンスを生成
+        _peer = SKWPeer.init(options: option);
+        
+        
+        // コールバックを登録（ERROR / 接続失敗時)
+        _peer?.on(SKWPeerEventEnum.PEER_EVENT_ERROR,callback:{ (obj: NSObject?) -> Void in
+            let error:SKWPeerError = obj as! SKWPeerError
+            print("\(error)")
+        })
+        
+        // コールバックを登録(OPEN / 接続成功時)
+        _peer?.on(SKWPeerEventEnum.PEER_EVENT_OPEN,callback:{ (obj: NSObject?) -> Void in
+            self._id = obj as? String
+            DispatchQueue.main.async {
+                self.idLabel.text = "your ID: \(self._id!)"
+            }
+        })
+        
+        // メディアを取得
+        SKWNavigator.initialize(_peer);
+        let constraints:SKWMediaConstraints = SKWMediaConstraints.init();
+        _msLocal = SKWNavigator.getUserMedia(constraints) as SKWMediaStream
+        
+        // ローカルビデオメディアをセット
+        let localVideoView:SKWVideo = self.view.viewWithTag(ViewTag.tag_LOCAL_VIDEO.hashValue) as! SKWVideo
+        localVideoView.addSrc(_msLocal, track: 0)
+        
+        // コールバックを登録（CALL / 相手から着信時)
+        _peer?.on(SKWPeerEventEnum.PEER_EVENT_CALL, callback: { (obj:NSObject?) -> Void in
+            self._mediaConnection = obj as? SKWMediaConnection
+            self._mediaConnection?.answer(self._msLocal);
+            self._bEstablished = true
+            self.updateUI()
+        })
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    /* Bluetooth 関連 */
     
     func scan() {
         centralManager.scanForPeripherals(withServices: [CBUUID.init(string: "B83BD1D0-1FB0-4A96-A471-E2300982C40A")], options: nil)
@@ -110,85 +171,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         }
     }
     
-    //skyway
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        self.view.backgroundColor = UIColor.white
-        
-        setupUI()
-        
-        if nil != self.navigationController {
-            self.navigationController?.delegate = self
-        }
-        
-        /////////////////////////////////////////////////////////////
-        /////////////////////  2.1．サーバへ接続  /////////////////////
-        ////////////////////////////////////////////////////////////
-        
-        //APIキー、ドメインを設定
-        let option: SKWPeerOption = SKWPeerOption.init();
-        option.key = "1bb5e4fc-4f56-4ee0-89dc-f36ec07aa7e5"
-        option.domain = "localhost"
-        
-        // Peerオブジェクトのインスタンスを生成
-        _peer = SKWPeer.init(options: option);
-        
-        
-        ///////////////////////////////////////////////////////////////
-        /////////////////////  2.2．接続成功・失敗  /////////////////////
-        //////////////////////////////////////////////////////////////
-        
-        //コールバックを登録（ERROR)
-        _peer?.on(SKWPeerEventEnum.PEER_EVENT_ERROR,callback:{ (obj: NSObject?) -> Void in
-            let error:SKWPeerError = obj as! SKWPeerError
-            print("\(error)")
-        })
-        
-        // コールバックを登録(OPEN)
-        _peer?.on(SKWPeerEventEnum.PEER_EVENT_OPEN,callback:{ (obj: NSObject?) -> Void in
-            self._id = obj as? String
-            DispatchQueue.main.async {
-                self.idLabel.text = "your ID: \(self._id!)"
-            }
-        })
-        
-        ///////////////////////////////////////////////////////////////
-        /////////////////////  2.3．メディアの取得  /////////////////////
-        //////////////////////////////////////////////////////////////
-        
-        //メディアを取得
-        SKWNavigator.initialize(_peer);
-        let constraints:SKWMediaConstraints = SKWMediaConstraints.init();
-        _msLocal = SKWNavigator.getUserMedia(constraints) as SKWMediaStream
-        
-        //ローカルビデオメディアをセット
-        
-        let localVideoView:SKWVideo = self.view.viewWithTag(ViewTag.tag_LOCAL_VIDEO.hashValue) as! SKWVideo
-        localVideoView.addSrc(_msLocal, track: 0)
-        
-        
-        
-        
-        ////////////////////////////////////////////////////////////
-        /////////////////////  2.4.相手から着信  /////////////////////
-        ////////////////////////////////////////////////////////////
-        
-        //コールバックを登録（CALL)
-        _peer?.on(SKWPeerEventEnum.PEER_EVENT_CALL, callback: { (obj:NSObject?) -> Void in
-            self._mediaConnection = obj as? SKWMediaConnection
-            self._mediaConnection?.answer(self._msLocal);
-            self._bEstablished = true
-            self.updateUI()
-        })
-    }
+    /* SkyWay 関連 */
     
     func setMediaCallbacks(_ media:SKWMediaConnection){
         
-        //コールバックを登録（Stream）
+        // コールバックを登録（Stream）
         media.on(SKWMediaConnectionEventEnum.MEDIACONNECTION_EVENT_STREAM, callback: { (obj:NSObject?) -> Void in
             self._msRemote = obj as? SKWMediaStream
             
@@ -200,7 +188,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             }
         })
         
-        //コールバックを登録（Close）
+        // コールバックを登録（Close）
         media.on(SKWMediaConnectionEventEnum.MEDIACONNECTION_EVENT_CLOSE, callback: { (obj:NSObject?) -> Void in
             self._msRemote = obj as? SKWMediaStream
             
@@ -222,7 +210,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     //data
     func setDataCallbacks(_ data:SKWDataConnection){
         
-        //コールバックを登録(チャンネルOPEN)
+        // コールバックを登録(チャンネルOPEN)
         data.on(SKWDataConnectionEventEnum.DATACONNECTION_EVENT_OPEN, callback: { (obj:NSObject?) -> Void in
             self.appendLogWithHead("system", value: "DataConnection opened")
             self._bEstablished = true;
@@ -245,11 +233,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         })
     }
     
-    ///////////////////////////////////////////////////////////////////
-    /////////////////////  2.5.　相手へのビデオ発信　/////////////////////
-    //////////////////////////////////////////////////////////////////
-    
-    
+    // 相手へのビデオ発信
     func getPeerList(){
         if (_peer == nil) || (_id == nil) || (_id?.characters.count == 0) {
             return
@@ -275,7 +259,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         })
     }
     
-    //ビデオ通話を開始する
+    // ビデオ通話を開始する
     func call(_ strDestId: String) {
         let option = SKWCallOption()
         _mediaConnection = _peer!.call(withId: strDestId, stream: _msLocal, options: option)
@@ -286,7 +270,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         self.updateUI()
     }
     
-    //ビデオ通話を終了する
+    // ビデオ通話を終了する
     func closeChat(){
         if _mediaConnection != nil{
             if _msRemote != nil{
@@ -300,7 +284,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         }
     }
     
-    //データチャンネルを開く
+    // データチャンネルを開く
     func connect(_ strDestId: String) {
         let options = SKWConnectOption()
         options.label = "chat"
@@ -308,13 +292,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         options.serialization = SKWSerializationEnum.SERIALIZATION_BINARY
         options.reliable = true
         
-        //接続
+        // 接続
         _data = _peer?.connect(withId: strDestId, options: options)
         setDataCallbacks(self._data!)
         self.updateUI()
     }
     
-    //接続を終了する
+    // 接続を終了する
     func close(){
         if _bEstablished == false{
             return
@@ -326,7 +310,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         }
     }
     
-    //テキストデータを送信する
+    // テキストデータを送信する
     func send(_ data:String){
         let bResult:Bool = (_data?.send(data as NSObject!))!
         
@@ -335,7 +319,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         }
     }
     
-    
+    // Peer の一覧（TableView）を表示
     func showPeerDialog(){
         let vc = PeerListViewController()
         vc.items = _listPeerIds as [AnyObject]?
@@ -349,14 +333,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         
     }
     
-    
-    
-    
-    //////////////////////////////////////////////////////////////////
-    /////////////////////  2.6.　UIのセットアップ  /////////////////////
-    /////////////////////////////////////////////////////////////////
-    
-    
+    // UIのセットアップ
     func setupUI(){
         
         let rcScreen:CGRect = self.view.bounds;
@@ -398,6 +375,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         self.updateUI();
     }
     
+    // Call ボタン押下時
     @IBAction func pushCallButton(_ sender: AnyObject) {
         
         if self._mediaConnection == nil {
@@ -412,7 +390,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             self.performSelector(inBackground: #selector(ViewController.close), with: nil)
         }
     }
-    
     
     func updateUI(){
         DispatchQueue.main.async { () -> Void in
@@ -431,21 +408,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 self.idLabel.text = "your Id:"+self._id! as String
             }
         }
-        
-//        func pushSendButton(_ sender: AnyObject) {
-//            let data:String = self.editMessageTextField.text!;
-//            self.send(data)
-//            self.editMessageTextField.text = ""
-//        }
-    }
-    
-    
-    
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     enum ViewTag : UInt {
@@ -456,11 +418,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
     
     func appendLogWithMessage(_ strMessage:String){
-//        var rng = NSMakeRange((logTextView.text?.characters.count)! + 1, 0)
-//        logTextView.selectedRange = rng
-//        logTextView.replace(logTextView.selectedTextRange!, withText: strMessage)
-//        rng = NSMakeRange(logTextView.text.characters.count + 1, 0)
-//        logTextView.scrollRangeToVisible(rng)
         print("message: \(strMessage)")
     }
     
@@ -486,19 +443,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         mstrValue.append("\n")
         self.performSelector(onMainThread: #selector(ViewController.appendLogWithMessage(_:)), with: mstrValue, waitUntilDone: true)
     }
-
     
 }
-
-//////////////////////////////////////////////////////////////
-/////////////////////  ハンズオンここまで  /////////////////////
-////////////////////////////////////////////////////////////
-
-
-
 
 
 extension ViewController: UINavigationControllerDelegate, UIAlertViewDelegate {
 }
-    
-    
