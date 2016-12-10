@@ -89,12 +89,22 @@ class CallViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onBack(_ sender: UIButton) {
+        let _ = self.navigationController?.popToRootViewController(animated: true)
+    }
     
     func setMediaCallbacks(_ media:SKWMediaConnection){
         
         // コールバックを登録（Stream）
         media.on(SKWMediaConnectionEventEnum.MEDIACONNECTION_EVENT_STREAM, callback: { (obj:NSObject?) -> Void in
             self._msRemote = obj as? SKWMediaStream
+            
+            let session: AVAudioSession = AVAudioSession.sharedInstance()
+            do {
+                try session.overrideOutputAudioPort(.speaker)
+            } catch {
+                print("override output audio port error")
+            }
             
             DispatchQueue.main.async {
                 () -> Void in
@@ -128,24 +138,23 @@ class CallViewController: UIViewController {
         
         // コールバックを登録(チャンネルOPEN)
         data.on(SKWDataConnectionEventEnum.DATACONNECTION_EVENT_OPEN, callback: { (obj:NSObject?) -> Void in
-            self.appendLogWithHead("system", value: "DataConnection opened")
+            print("[system] DataConnection opened")
             self._bEstablished = true;
-            self.updateUI();
         })
         
         // コールバックを登録(DATA受信)
         data.on(SKWDataConnectionEventEnum.DATACONNECTION_EVENT_DATA, callback: { (obj:NSObject?) -> Void in
             let strValue:String = obj as! String
-            self.appendLogWithHead("Partner", value: strValue)
-            
+            print("[Partner] \(strValue)")
+            self.btConnection?.send(message: strValue)
         })
         
         // コールバックを登録(チャンネルCLOSE)
         data.on(SKWDataConnectionEventEnum.DATACONNECTION_EVENT_CLOSE, callback: { (obj:NSObject?) -> Void in
             self._data = nil
             self._bEstablished = false
+            print("[system] DataConnection closed")
             self.updateUI()
-            self.appendLogWithHead("system", value:"DataConnection closed.")
         })
     }
     
@@ -231,7 +240,7 @@ class CallViewController: UIViewController {
         let bResult:Bool = (_data?.send(data as NSObject!))!
         
         if bResult == true {
-            self.appendLogWithHead("You", value: data)
+            print("[send] \(data)")
         }
     }
     
@@ -313,7 +322,7 @@ class CallViewController: UIViewController {
             
             //CALLボタンのアップデート
             if self._bEstablished == false{
-                self.callButton.titleLabel?.text = "CALL"
+                self.callButton.titleLabel?.text = "Call"
             }else{
                 self.callButton.titleLabel?.text = "Hang up"
             }
@@ -334,11 +343,13 @@ class CallViewController: UIViewController {
         case tag_LOCAL_VIDEO
     }
     
+    /*
     func appendLogWithMessage(_ strMessage:String){
         print("message: \(strMessage)")
-        btConnection?.send(message: strMessage)
     }
+    */
     
+    /*
     func appendLogWithHead(_ strHeader: String?, value strValue: String) {
         if 0 == strValue.characters.count {
             return
@@ -361,6 +372,7 @@ class CallViewController: UIViewController {
         mstrValue.append("\n")
         self.performSelector(onMainThread: #selector(CallViewController.appendLogWithMessage(_:)), with: mstrValue, waitUntilDone: true)
     }
+    */
     
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

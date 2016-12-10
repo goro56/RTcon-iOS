@@ -11,7 +11,6 @@
 		00C198361DF1DD1C006CAB08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00C198351DF1DD1C006CAB08 /* Main.storyboard */; };
 		00E0E3621DF16BE200B66022 /* PeerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0E3611DF16BE200B66022 /* PeerListViewController.swift */; };
 		843332FB1DC07885004E3F54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843332FA1DC07885004E3F54 /* AppDelegate.swift */; };
-		843332FD1DC07885004E3F54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843332FC1DC07885004E3F54 /* ViewController.swift */; };
 		843333021DC07885004E3F54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843333011DC07885004E3F54 /* Assets.xcassets */; };
 		843333051DC07885004E3F54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843333031DC07885004E3F54 /* LaunchScreen.storyboard */; };
 		843333101DC07885004E3F54 /* RTconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8433330F1DC07885004E3F54 /* RTconTests.swift */; };
@@ -62,7 +61,6 @@
 		58AEF7BBF77D0A56A5AE997F /* libPods-RTcon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RTcon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		843332F71DC07885004E3F54 /* RTcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RTcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		843332FA1DC07885004E3F54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		843332FC1DC07885004E3F54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		843333011DC07885004E3F54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		843333041DC07885004E3F54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		843333061DC07885004E3F54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				843332FA1DC07885004E3F54 /* AppDelegate.swift */,
-				843332FC1DC07885004E3F54 /* ViewController.swift */,
 				843333011DC07885004E3F54 /* Assets.xcassets */,
 				843333031DC07885004E3F54 /* LaunchScreen.storyboard */,
 				843333061DC07885004E3F54 /* Info.plist */,
@@ -413,7 +410,6 @@
 				84F1EE641DF318020083D396 /* DevicesListTableViewController.swift in Sources */,
 				001148001DF160A2005DC0D5 /* Bridging-Header.h in Sources */,
 				84F1EE661DF319B50083D396 /* BluetoothConnection.swift in Sources */,
-				843332FD1DC07885004E3F54 /* ViewController.swift in Sources */,
 				00E0E3621DF16BE200B66022 /* PeerListViewController.swift in Sources */,
 				84F1EE6C1DF34C980083D396 /* CallViewController.swift in Sources */,
 				843332FB1DC07885004E3F54 /* AppDelegate.swift in Sources */,

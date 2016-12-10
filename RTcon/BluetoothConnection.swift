@@ -27,6 +27,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
     }
     
     func scan(callback: @escaping (Void) -> Void) {
+        foundDevices = []
         peripheral = nil
         characteristics = []
         
@@ -42,7 +43,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         let data = message.data(using: .utf8)
         for characteristic in characteristics {
             if characteristic.uuid.isEqual(CBUUID.init(string: "B83BD1D0-1FB0-4A96-A471-E2300982C40B")) {
-                peripheral.writeValue(data!, for: characteristic, type: .withResponse)
+                peripheral.writeValue(data!, for: characteristic, type: .withoutResponse)
             }
         }
     }
@@ -70,6 +71,8 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         
         centralManager.stopScan()
         print("scanning stoped")
+        
+        self.peripheral = peripheral
         
         connectCallback!()
         
@@ -105,5 +108,12 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         
         characteristics = service.characteristics!
         print("Found \(characteristics.count) characteristics! : \(characteristics)")
+        
+        let data = "connected".data(using: .utf8)
+        for characteristic in characteristics {
+            if characteristic.uuid.isEqual(CBUUID.init(string: "B83BD1D0-1FB0-4A96-A471-E2300982C40B")) {
+                peripheral.writeValue(data!, for: characteristic, type: .withoutResponse)
+            }
+        }
     }
 }

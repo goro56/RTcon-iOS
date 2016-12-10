@@ -34,7 +34,6 @@ class PeerListViewController: UITableViewController{
         
         self.tableView.allowsSelection = true
         self.tableView.allowsMultipleSelection = false
-        self.navigationItem.title = "Select Target's PeerID"
         
         let bbiBack:UIBarButtonItem = UIBarButtonItem.init(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(PeerListViewController.cancel))
         self.navigationItem.leftBarButtonItem = bbiBack

@@ -20,12 +20,8 @@ class DevicesListTableViewController: UITableViewController {
         
         self.tableView.allowsSelection = true
         self.tableView.allowsMultipleSelection = false
-        self.navigationItem.title = "Select Device"
         
-        let bbiBack:UIBarButtonItem = UIBarButtonItem.init(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(PeerListViewController.cancel))
-        self.navigationItem.leftBarButtonItem = bbiBack
-        
-        self.tableView.register(UITableViewCell.self,forCellReuseIdentifier: "cell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
@@ -37,12 +33,8 @@ class DevicesListTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func cancel(){
-        if self.callback != nil{
-            self.callback?.dismiss(animated: true, completion: nil)
-        }else{
-            self.dismiss(animated: true, completion: nil)
-        }
+    @IBAction func onCancel(_ sender: UIButton) {
+        let _ = self.navigationController?.popViewController(animated: true)
     }
     
     func showCallView() {
