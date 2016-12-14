@@ -9,9 +9,9 @@
 import UIKit
 import Foundation
 import AVFoundation
+import ReachabilitySwift
 
 class CallViewController: UIViewController {
-
     var btConnection: BluetoothConnection? = nil
     weak var callback: UIViewController?
     
@@ -25,12 +25,18 @@ class CallViewController: UIViewController {
     fileprivate var _id: String? = nil
     fileprivate var _bEstablished: Bool = false
     fileprivate var _listPeerIds: Array<String> = []
-    
-    // data (SkyWay関連)
     fileprivate var _data: SKWDataConnection?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let reachability = Reachability.init()
+        NotificationCenter.default.addObserver(self, selector: Selector(("reachabilityChanged:")), name: ReachabilityChangedNotification, object: reachability)
+        do{
+            try reachability?.startNotifier()
+        }catch{
+            print("could not start reachability notifier")
+        }
         
         setupUI()
         self.callButton.isEnabled = false
@@ -48,13 +54,13 @@ class CallViewController: UIViewController {
         // Peerオブジェクトのインスタンスを生成
         _peer = SKWPeer.init(options: option)
         
-        // コールバックを登録（ERROR / 接続失敗時)
+        // コールバックを登録 (ERROR / 接続失敗時)
         _peer?.on(SKWPeerEventEnum.PEER_EVENT_ERROR,callback:{ (obj: NSObject?) -> Void in
             let error:SKWPeerError = obj as! SKWPeerError
             print("\(error)")
         })
         
-        // コールバックを登録(OPEN / 接続成功時)
+        // コールバックを登録 (OPEN / 接続成功時)
         _peer?.on(SKWPeerEventEnum.PEER_EVENT_OPEN,callback:{ (obj: NSObject?) -> Void in
             self._id = obj as? String
             DispatchQueue.main.async {
@@ -100,6 +106,21 @@ class CallViewController: UIViewController {
         }
         
         let _ = self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    // ネットワーク接続変化時
+    func reachabilityChanged(note: NSNotification) {
+        let reachability = note.object as! Reachability
+        
+        if reachability.isReachable {
+            if reachability.isReachableViaWiFi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        } else {
+            print("Network not reachable")
+        }
     }
     
     func setMediaCallbacks(_ media:SKWMediaConnection){
@@ -322,7 +343,6 @@ class CallViewController: UIViewController {
     
     func updateUI(){
         DispatchQueue.main.async { () -> Void in
-            
             //CALLボタンのアップデート
             if self._bEstablished == false{
                 self.callButton.titleLabel?.text = "Call"
