@@ -33,6 +33,7 @@ class CallViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        self.callButton.isEnabled = false
         
         if nil != self.navigationController {
             self.navigationController?.delegate = self
@@ -40,13 +41,12 @@ class CallViewController: UIViewController {
         
         // サーバへ接続
         // APIキー、ドメインを設定
-        let option: SKWPeerOption = SKWPeerOption.init();
+        let option: SKWPeerOption = SKWPeerOption.init()
         option.key = "1bb5e4fc-4f56-4ee0-89dc-f36ec07aa7e5"
         option.domain = "localhost"
         
         // Peerオブジェクトのインスタンスを生成
-        _peer = SKWPeer.init(options: option);
-        
+        _peer = SKWPeer.init(options: option)
         
         // コールバックを登録（ERROR / 接続失敗時)
         _peer?.on(SKWPeerEventEnum.PEER_EVENT_ERROR,callback:{ (obj: NSObject?) -> Void in
@@ -59,12 +59,13 @@ class CallViewController: UIViewController {
             self._id = obj as? String
             DispatchQueue.main.async {
                 self.idLabel.text = "your ID: \(self._id!)"
+                self.callButton.isEnabled = true
             }
         })
         
         // メディアを取得
-        SKWNavigator.initialize(_peer);
-        let constraints:SKWMediaConstraints = SKWMediaConstraints.init();
+        SKWNavigator.initialize(_peer)
+        let constraints:SKWMediaConstraints = SKWMediaConstraints.init()
         _msLocal = SKWNavigator.getUserMedia(constraints) as SKWMediaStream
         
         // ローカルビデオメディアをセット
