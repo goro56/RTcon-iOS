@@ -30,11 +30,7 @@ class CallViewController: UIViewController {
     fileprivate var _data: SKWDataConnection?
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        self.view.backgroundColor = UIColor.white
         
         setupUI()
         
@@ -86,15 +82,26 @@ class CallViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    // Backボタン押下時
     @IBAction func onBack(_ sender: UIButton) {
+        if self._mediaConnection != nil {
+            self.performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
+        }
+        
+        if _data != nil {
+            self.performSelector(inBackground: #selector(CallViewController.disconnect), with: nil)
+        }
+        
+        if _peer != nil {
+            _peer?.disconnect()
+        }
+        
         let _ = self.navigationController?.popToRootViewController(animated: true)
     }
     
     func setMediaCallbacks(_ media:SKWMediaConnection){
-        
         // コールバックを登録（Stream）
         media.on(SKWMediaConnectionEventEnum.MEDIACONNECTION_EVENT_STREAM, callback: { (obj:NSObject?) -> Void in
             self._msRemote = obj as? SKWMediaStream
@@ -132,10 +139,8 @@ class CallViewController: UIViewController {
         })
     }
     
-    
-    //data
+    // data
     func setDataCallbacks(_ data:SKWDataConnection){
-        
         // コールバックを登録(チャンネルOPEN)
         data.on(SKWDataConnectionEventEnum.DATACONNECTION_EVENT_OPEN, callback: { (obj:NSObject?) -> Void in
             print("[system] DataConnection opened")
@@ -180,7 +185,6 @@ class CallViewController: UIViewController {
             if self._listPeerIds.count >= 0{
                 self.showPeerDialog()
             }
-            
         })
     }
     
@@ -196,12 +200,12 @@ class CallViewController: UIViewController {
     }
     
     // ビデオ通話を終了する
-    func closeChat(){
+    func hangUp(){
         if _mediaConnection != nil{
             if _msRemote != nil{
                 let remoteVideoView:SKWVideo = self.view.viewWithTag(ViewTag.tag_REMOTE_VIDEO.hashValue) as! SKWVideo
                 
-                remoteVideoView .removeSrc(_msRemote, track: 0)
+                remoteVideoView.removeSrc(_msRemote, track: 0)
                 _msRemote?.close()
                 _msRemote = nil
             }
@@ -224,7 +228,7 @@ class CallViewController: UIViewController {
     }
     
     // 接続を終了する
-    func close(){
+    func disconnect(){
         if _bEstablished == false{
             return
         }
@@ -261,7 +265,6 @@ class CallViewController: UIViewController {
     
     // UIのセットアップ
     func setupUI(){
-        
         let rcScreen:CGRect = self.view.bounds;
         
         
@@ -303,17 +306,16 @@ class CallViewController: UIViewController {
     
     // Call ボタン押下時
     @IBAction func pushCallButton(_ sender: AnyObject) {
-        
         if self._mediaConnection == nil {
             self.getPeerList()
         }else{
-            self.performSelector(inBackground: #selector(CallViewController.closeChat), with: nil)
+            self.performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
         }
         
         if _data == nil {
             self.getPeerList()
         }else{
-            self.performSelector(inBackground: #selector(CallViewController.close), with: nil)
+            self.performSelector(inBackground: #selector(CallViewController.disconnect), with: nil)
         }
     }
     
