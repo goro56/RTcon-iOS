@@ -30,13 +30,13 @@ class CallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let reachability = Reachability.init()
-        NotificationCenter.default.addObserver(self, selector: Selector(("reachabilityChanged:")), name: ReachabilityChangedNotification, object: reachability)
+        //let reachability = Reachability.init()
+        /*NotificationCenter.default.addObserver(self, selector: Selector(("reachabilityChanged:")), name: ReachabilityChangedNotification, object: reachability)
         do{
             try reachability?.startNotifier()
         }catch{
             print("could not start reachability notifier")
-        }
+        }*/
         
         setupUI()
         self.callButton.isEnabled = false
@@ -93,6 +93,8 @@ class CallViewController: UIViewController {
     
     // Backボタン押下時
     @IBAction func onBack(_ sender: UIButton) {
+        btConnection?.disconnect()
+        
         if self._mediaConnection != nil {
             self.performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
         }
@@ -108,18 +110,36 @@ class CallViewController: UIViewController {
         let _ = self.navigationController?.popToRootViewController(animated: true)
     }
     
+    // Call ボタン押下時
+    @IBAction func pushCallButton(_ sender: AnyObject) {
+        if self._mediaConnection == nil {
+            self.getPeerList()
+        }else{
+            self.performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
+        }
+        
+        if _data == nil {
+            self.getPeerList()
+        }else{
+            self.performSelector(inBackground: #selector(CallViewController.disconnect), with: nil)
+        }
+    }
+    
     // ネットワーク接続変化時
     func reachabilityChanged(note: NSNotification) {
         let reachability = note.object as! Reachability
         
-        if reachability.isReachable {
-            if reachability.isReachableViaWiFi {
-                print("Reachable via WiFi")
+        if self._peer != nil {
+            _peer?.reconnect()
+            if reachability.isReachable {
+                if reachability.isReachableViaWiFi {
+                    print("Reachable via WiFi")
+                } else {
+                    print("Reachable via Cellular")
+                }
             } else {
-                print("Reachable via Cellular")
+                print("Network not reachable")
             }
-        } else {
-            print("Network not reachable")
         }
     }
     
@@ -324,21 +344,6 @@ class CallViewController: UIViewController {
         self.view.addSubview(vwRemote)
         
         self.updateUI();
-    }
-    
-    // Call ボタン押下時
-    @IBAction func pushCallButton(_ sender: AnyObject) {
-        if self._mediaConnection == nil {
-            self.getPeerList()
-        }else{
-            self.performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
-        }
-        
-        if _data == nil {
-            self.getPeerList()
-        }else{
-            self.performSelector(inBackground: #selector(CallViewController.disconnect), with: nil)
-        }
     }
     
     func updateUI(){

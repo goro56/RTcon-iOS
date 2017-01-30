@@ -34,7 +34,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         if centralManager.state == CBManagerState.poweredOn {
             scanCallback = callback
             foundDevices = []
-            centralManager.scanForPeripherals(withServices: [CBUUID.init(string: "B83BD1D0-1FB0-4A96-A471-E2300982C40A")], options: nil)
+            centralManager.scanForPeripherals(withServices: [CBUUID.init(string: "FFE0")], options: nil)
             print("scanning started")
         }
     }
@@ -42,7 +42,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
     func send(message: String) {
         let data = message.data(using: .utf8)
         for characteristic in characteristics {
-            if characteristic.uuid.isEqual(CBUUID.init(string: "B83BD1D0-1FB0-4A96-A471-E2300982C40B")) {
+            if characteristic.uuid.isEqual(CBUUID.init(string: "FFE1")) {
                 peripheral.writeValue(data!, for: characteristic, type: .withoutResponse)
             }
         }
@@ -51,6 +51,11 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
     func connect(peripheral: CBPeripheral, callback: @escaping (Void) -> Void) {
         connectCallback = callback
         centralManager.connect(peripheral, options: nil)
+    }
+    
+    func disconnect() {
+        centralManager.cancelPeripheralConnection(peripheral)
+        peripheral = nil
     }
     
     // CentralManager の State が変更されると呼ばれる
@@ -77,7 +82,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         connectCallback!()
         
         peripheral.delegate = self
-        peripheral.discoverServices([CBUUID.init(string: "B83BD1D0-1FB0-4A96-A471-E2300982C40A")])
+        peripheral.discoverServices([CBUUID.init(string: "FFE0")])
     }
     
     // Peripheral への接続が失敗すると呼ばれる
@@ -96,7 +101,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         print("Found \(services?.count) services! :\(services)")
         
         for service in services! {
-            peripheral.discoverCharacteristics([CBUUID.init(string: "B83BD1D0-1FB0-4A96-A471-E2300982C40B")], for: service)
+            peripheral.discoverCharacteristics([CBUUID.init(string: "FFE1")], for: service)
         }
     }
     
@@ -111,7 +116,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         
         let data = "connected".data(using: .utf8)
         for characteristic in characteristics {
-            if characteristic.uuid.isEqual(CBUUID.init(string: "B83BD1D0-1FB0-4A96-A471-E2300982C40B")) {
+            if characteristic.uuid.isEqual(CBUUID.init(string: "FFE1")) {
                 peripheral.writeValue(data!, for: characteristic, type: .withoutResponse)
             }
         }
