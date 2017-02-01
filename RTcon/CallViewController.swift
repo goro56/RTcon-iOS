@@ -48,13 +48,18 @@ class CallViewController: UIViewController {
         _peer = SKWPeer.init(options: option)
         
         // コールバックを登録 (ERROR / 接続失敗時)
-        _peer?.on(SKWPeerEventEnum.PEER_EVENT_ERROR,callback:{ (obj: NSObject?) -> Void in
-            let error:SKWPeerError = obj as! SKWPeerError
-            print("\(error)")
+        _peer?.on(.PEER_EVENT_ERROR, callback: { (obj: NSObject?) -> Void in
+            let error: SKWPeerError = obj as! SKWPeerError
+            let alert: UIAlertController = UIAlertController.init(title: "Error", message: "Skyway Peer Error\n\(error)", preferredStyle: .alert)
+            
+            let defaultAction: UIAlertAction = UIAlertAction.init(title: "OK", style: .default, handler: nil)
+            alert.addAction(defaultAction)
+            
+            self.present(alert, animated: true, completion: nil)
         })
         
         // コールバックを登録 (OPEN / 接続成功時)
-        _peer?.on(SKWPeerEventEnum.PEER_EVENT_OPEN,callback:{ (obj: NSObject?) -> Void in
+        _peer?.on(.PEER_EVENT_OPEN, callback: { (obj: NSObject?) in
             self._id = obj as? String
             DispatchQueue.main.async {
                 self.idLabel.text = "your ID: \(self._id!)"
@@ -85,7 +90,7 @@ class CallViewController: UIViewController {
         do{
             try reachability.startNotifier()
         }catch{
-            print("could not start reachability notifier")
+            print("Could not start reachability notifier")
         }
     }
     
