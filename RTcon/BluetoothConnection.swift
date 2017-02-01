@@ -65,14 +65,14 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
     
     // スキャン結果を受け取る
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("device: \(peripheral.name), RSSI = \(RSSI)")
+        print("device: \(peripheral.name!), RSSI = \(RSSI)")
         foundDevices.append(peripheral)
         scanCallback!()
     }
     
     // Peripheral への接続が成功すると呼ばれる
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("connected!")
+        print("connected to \(peripheral.name!)!")
         
         centralManager.stopScan()
         print("scanning stoped")
@@ -87,7 +87,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
     
     // Peripheral への接続が失敗すると呼ばれる
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        print("failed...")
+        print("connecting to peripheral failed...")
     }
     
     // Services の探索結果を受け取る
@@ -98,7 +98,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         }
         
         let services = peripheral.services
-        print("Found \(services?.count) services! :\(services)")
+        print("Found \((services?.count)!) service")
         
         for service in services! {
             peripheral.discoverCharacteristics([CBUUID.init(string: "FFE1")], for: service)
@@ -112,7 +112,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         }
         
         characteristics = service.characteristics!
-        print("Found \(characteristics.count) characteristics! : \(characteristics)")
+        print("Found \(characteristics.count) characteristic")
         
         let data = "connected".data(using: .utf8)
         for characteristic in characteristics {

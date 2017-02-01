@@ -14,6 +14,7 @@ import ReachabilitySwift
 class CallViewController: UIViewController {
     var btConnection: BluetoothConnection? = nil
     weak var callback: UIViewController?
+    let reachability = Reachability()!
     
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var callButton: UIButton!
@@ -29,14 +30,6 @@ class CallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //let reachability = Reachability.init()
-        /*NotificationCenter.default.addObserver(self, selector: Selector(("reachabilityChanged:")), name: ReachabilityChangedNotification, object: reachability)
-        do{
-            try reachability?.startNotifier()
-        }catch{
-            print("could not start reachability notifier")
-        }*/
         
         setupUI()
         self.callButton.isEnabled = false
@@ -87,6 +80,15 @@ class CallViewController: UIViewController {
         })
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged), name: ReachabilityChangedNotification, object: reachability)
+        do{
+            try reachability.startNotifier()
+        }catch{
+            print("could not start reachability notifier")
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -129,17 +131,18 @@ class CallViewController: UIViewController {
     func reachabilityChanged(note: NSNotification) {
         let reachability = note.object as! Reachability
         
+        if reachability.isReachable {
+            if reachability.isReachableViaWiFi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        } else {
+            print("Network not reachable")
+        }
+        
         if self._peer != nil {
             _peer?.reconnect()
-            if reachability.isReachable {
-                if reachability.isReachableViaWiFi {
-                    print("Reachable via WiFi")
-                } else {
-                    print("Reachable via Cellular")
-                }
-            } else {
-                print("Network not reachable")
-            }
         }
     }
     

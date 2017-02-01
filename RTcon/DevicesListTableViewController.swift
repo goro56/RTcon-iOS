@@ -67,7 +67,6 @@ class DevicesListTableViewController: UITableViewController {
         
         // Cellに値を設定する.
         cell.textLabel!.text = (btConnection?.foundDevices[indexPath.row].name!)! as String
-        print("\(btConnection?.foundDevices[indexPath.row].name)")
         
         return cell
     }
