@@ -18,6 +18,7 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
     var foundDevices: Array<CBPeripheral> = []
     var scanCallback: ((Void) -> Void)? = nil
     var connectCallback: ((Void) -> Void)? = nil
+    var readCallback: ((String) -> Void)? = nil
     
     var characteristics: [CBCharacteristic] = []
     
@@ -46,6 +47,10 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
                 peripheral.writeValue(data!, for: characteristic, type: .withoutResponse)
             }
         }
+    }
+    
+    func read(callback: @escaping (String) -> Void) {
+        readCallback = callback
     }
     
     func connect(peripheral: CBPeripheral, callback: @escaping (Void) -> Void) {
@@ -118,7 +123,23 @@ class BluetoothConnection: NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         for characteristic in characteristics {
             if characteristic.uuid.isEqual(CBUUID.init(string: "FFE1")) {
                 peripheral.writeValue(data!, for: characteristic, type: .withoutResponse)
+                peripheral.setNotifyValue(true, for: characteristic)
+                peripheral.readValue(for: characteristic)
             }
+        }
+    }
+    
+    // 値をreadする
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        if let error = error {
+            print("Failed... error: \(error)")
+            return
+        }
+        let message: String = String.init(bytes: characteristic.value!, encoding: .ascii)!
+        print("read: \(message)")
+        
+        if readCallback != nil {
+            readCallback!(message)
         }
     }
 }

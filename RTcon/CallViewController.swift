@@ -48,9 +48,9 @@ class CallViewController: UIViewController {
         _peer = SKWPeer.init(options: option)
         
         // コールバックを登録 (ERROR / 接続失敗時)
-        _peer?.on(.PEER_EVENT_ERROR, callback: { (obj: NSObject?) -> Void in
+        _peer?.on(.PEER_EVENT_ERROR, callback: { (obj: NSObject?) in
             let error: SKWPeerError = obj as! SKWPeerError
-            let alert: UIAlertController = UIAlertController.init(title: "Error", message: "Skyway Peer Error\n\(error)", preferredStyle: .alert)
+            let alert: UIAlertController = UIAlertController.init(title: "Peer Error (\(error.type.rawValue))", message: "\(error.message)", preferredStyle: .alert)
             
             let defaultAction: UIAlertAction = UIAlertAction.init(title: "OK", style: .default, handler: nil)
             alert.addAction(defaultAction)
@@ -77,21 +77,31 @@ class CallViewController: UIViewController {
         localVideoView.addSrc(_msLocal, track: 0)
         
         // コールバックを登録（CALL / 相手から着信時)
-        _peer?.on(SKWPeerEventEnum.PEER_EVENT_CALL, callback: { (obj:NSObject?) -> Void in
+        _peer?.on(.PEER_EVENT_CALL, callback: { (obj: NSObject?) in
             self._mediaConnection = obj as? SKWMediaConnection
             self._mediaConnection?.answer(self._msLocal);
             self._bEstablished = true
             self.updateUI()
         })
+        
+        // コールバックを登録（CONNECTION / 相手からデータ通信開始時)
+        _peer?.on(.PEER_EVENT_CONNECTION, callback: { (obj: NSObject?) in
+            self._data = obj as? SKWDataConnection
+            self.setDataCallbacks(self._data!)
+            self.btConnection?.read(callback: { (message: String) in
+                self.send(message)
+            })
+            self.updateUI()
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged), name: ReachabilityChangedNotification, object: reachability)
+        /*NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged), name: ReachabilityChangedNotification, object: reachability)
         do{
             try reachability.startNotifier()
         }catch{
             print("Could not start reachability notifier")
-        }
+        }*/
     }
     
     override func didReceiveMemoryWarning() {
