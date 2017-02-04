@@ -65,17 +65,17 @@ class PeerListViewController: UITableViewController{
         let strTo:String = (self.items![indexPath.row] as? String)!
         if self.callback != nil {
             self.callback?.dismiss(animated: true, completion: { () -> Void in
-                if (self.callback?.responds(to: #selector(CallViewController.call(_:))))! == true{
+                if (self.callback?.responds(to: #selector(CallViewController.call(destId:))))! == true{
                     DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async(execute: { () -> Void in
                         let view = self.callback as! CallViewController
-                        view.call(strTo)
+                        view.call(destId: strTo)
                     })
                 }
                 
-                if (self.callback?.responds(to: #selector(CallViewController.connect(_:))))! == true{
+                if (self.callback?.responds(to: #selector(CallViewController.connect(destId:))))! == true{
                     DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async(execute: { () -> Void in
                         let view = self.callback as! CallViewController
-                        view.connect(strTo)
+                        view.connect(destId: strTo)
                     })
                     
                 }
