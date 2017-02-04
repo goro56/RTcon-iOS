@@ -163,7 +163,7 @@ class CallViewController: UIViewController {
     
     func setMediaCallbacks(_ media:SKWMediaConnection){
         // コールバックを登録（Stream）
-        media.on(SKWMediaConnectionEventEnum.MEDIACONNECTION_EVENT_STREAM, callback: { (obj:NSObject?) -> Void in
+        media.on(.MEDIACONNECTION_EVENT_STREAM, callback: { (obj: NSObject?) -> Void in
             self._msRemote = obj as? SKWMediaStream
             
             let session: AVAudioSession = AVAudioSession.sharedInstance()
@@ -182,7 +182,7 @@ class CallViewController: UIViewController {
         })
         
         // コールバックを登録（Close）
-        media.on(SKWMediaConnectionEventEnum.MEDIACONNECTION_EVENT_CLOSE, callback: { (obj:NSObject?) -> Void in
+        media.on(.MEDIACONNECTION_EVENT_CLOSE, callback: { (obj: NSObject?) -> Void in
             self._msRemote = obj as? SKWMediaStream
             
             DispatchQueue.main.async {
@@ -199,16 +199,15 @@ class CallViewController: UIViewController {
         })
     }
     
-    // data
     func setDataCallbacks(_ data:SKWDataConnection){
         // コールバックを登録(チャンネルOPEN)
-        data.on(SKWDataConnectionEventEnum.DATACONNECTION_EVENT_OPEN, callback: { (obj:NSObject?) -> Void in
+        data.on(.DATACONNECTION_EVENT_OPEN, callback: { (obj: NSObject?) -> Void in
             print("[system] DataConnection opened")
             self._bEstablished = true;
         })
         
         // コールバックを登録(DATA受信)
-        data.on(SKWDataConnectionEventEnum.DATACONNECTION_EVENT_DATA, callback: { (obj:NSObject?) -> Void in
+        data.on(.DATACONNECTION_EVENT_DATA, callback: { (obj: NSObject?) -> Void in
             let strValue:String = obj as! String
             print("[Partner] \(strValue)")
             self.btConnection?.send(message: strValue)
@@ -220,31 +219,6 @@ class CallViewController: UIViewController {
             self._bEstablished = false
             print("[system] DataConnection closed")
             self.updateUI()
-        })
-    }
-    
-    // 相手へのビデオ発信
-    func getPeerList(){
-        if (_peer == nil) || (_id == nil) || (_id?.characters.count == 0) {
-            return
-        }
-        
-        _peer?.listAllPeers({ (peers:[Any]?) -> Void in
-            self._listPeerIds = []
-            let peersArray:[String] = peers as! [String]
-            for strValue:String in peersArray{
-                print(strValue)
-                
-                if strValue == self._id{
-                    continue
-                }
-                
-                self._listPeerIds.append(strValue)
-            }
-            
-            if self._listPeerIds.count >= 0{
-                self.showPeerDialog()
-            }
         })
     }
     
@@ -276,13 +250,10 @@ class CallViewController: UIViewController {
     // データチャンネルを開く
     func connect(_ strDestId: String) {
         let options = SKWConnectOption()
-        options.label = "chat"
-        options.metadata = "{'message': 'hi'}"
-        options.serialization = SKWSerializationEnum.SERIALIZATION_BINARY
         options.reliable = true
         
         // 接続
-        _data = _peer?.connect(withId: strDestId, options: options)
+        self._data = _peer?.connect(withId: strDestId, options: options)
         setDataCallbacks(self._data!)
         self.updateUI()
     }
@@ -306,6 +277,31 @@ class CallViewController: UIViewController {
         if bResult == true {
             print("[send] \(data)")
         }
+    }
+    
+    // Peerリストを取得
+    func getPeerList(){
+        if (_peer == nil) || (_id == nil) || (_id?.characters.count == 0) {
+            return
+        }
+        
+        _peer?.listAllPeers({ (peers:[Any]?) -> Void in
+            self._listPeerIds = []
+            let peersArray:[String] = peers as! [String]
+            for strValue:String in peersArray{
+                print(strValue)
+                
+                if strValue == self._id{
+                    continue
+                }
+                
+                self._listPeerIds.append(strValue)
+            }
+            
+            if self._listPeerIds.count >= 0{
+                self.showPeerDialog()
+            }
+        })
     }
     
     // Peer の一覧（TableView）を表示
