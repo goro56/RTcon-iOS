@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		001148001DF160A2005DC0D5 /* Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 001147FF1DF15B37005DC0D5 /* Bridging-Header.h */; };
+		001148001DF160A2005DC0D5 /* Bridging-Header.h in Resources */ = {isa = PBXBuildFile; fileRef = 001147FF1DF15B37005DC0D5 /* Bridging-Header.h */; };
 		00C198361DF1DD1C006CAB08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00C198351DF1DD1C006CAB08 /* Main.storyboard */; };
 		00E0E3621DF16BE200B66022 /* PeerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0E3611DF16BE200B66022 /* PeerListViewController.swift */; };
 		7B0AF4C8056E51F2F38814FE /* Pods_RTcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5358F6C5FE3C39F39A8A29 /* Pods_RTcon.framework */; };
@@ -286,7 +286,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "下地勇人";
 				TargetAttributes = {
 					843332F61DC07885004E3F54 = {
@@ -334,6 +334,7 @@
 				843333051DC07885004E3F54 /* LaunchScreen.storyboard in Resources */,
 				843333021DC07885004E3F54 /* Assets.xcassets in Resources */,
 				00C198361DF1DD1C006CAB08 /* Main.storyboard in Resources */,
+				001148001DF160A2005DC0D5 /* Bridging-Header.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,7 +409,6 @@
 			files = (
 				84F1EE621DF315D00083D396 /* FirstViewController.swift in Sources */,
 				84F1EE641DF318020083D396 /* DevicesListTableViewController.swift in Sources */,
-				001148001DF160A2005DC0D5 /* Bridging-Header.h in Sources */,
 				84F1EE661DF319B50083D396 /* BluetoothConnection.swift in Sources */,
 				00E0E3621DF16BE200B66022 /* PeerListViewController.swift in Sources */,
 				84F1EE6C1DF34C980083D396 /* CallViewController.swift in Sources */,
@@ -477,6 +477,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -528,6 +529,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -558,6 +560,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10E00401D14750C876E097D9 /* Pods-RTcon.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CRWQCL5QB2;
 				ENABLE_BITCODE = NO;
@@ -582,6 +585,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0A6EDA52D35A989A91BD0B5 /* Pods-RTcon.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CRWQCL5QB2;
 				ENABLE_BITCODE = NO;

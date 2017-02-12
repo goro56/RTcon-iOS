@@ -33,8 +33,8 @@ class CallViewController: UIViewController {
         setupUI()
         self.callButton.isEnabled = false
         
-        if nil != self.navigationController {
-            self.navigationController?.delegate = self
+        if self.navigationController != nil {
+            navigationController?.delegate = self
         }
         
         // サーバへ接続
@@ -60,7 +60,7 @@ class CallViewController: UIViewController {
         peer?.on(.PEER_EVENT_OPEN, callback: { (obj: NSObject?) in
             self.id = obj as? String
             DispatchQueue.main.async {
-                self.idLabel.text = "your ID: \(self.id!)"
+                self.idLabel.text = "your ID: \(self.id)"
                 self.callButton.isEnabled = true
             }
         })
@@ -71,9 +71,6 @@ class CallViewController: UIViewController {
         let constraints: SKWMediaConstraints = SKWMediaConstraints.init()
         constraints.cameraPosition = .CAMERA_POSITION_FRONT
         localMedia = SKWNavigator.getUserMedia(constraints) as SKWMediaStream
-        
-        //let localVideoView: SKWVideo = self.view.viewWithTag(ViewTag.tag_LOCAL_VIDEO.hashValue) as! SKWVideo
-        //localVideoView.addSrc(localMedia, track: 0)
         
         // コールバックを登録（CALL / 相手から着信時)
         peer?.on(.PEER_EVENT_CALL, callback: { (obj: NSObject?) in
@@ -116,9 +113,7 @@ class CallViewController: UIViewController {
             self.performSelector(inBackground: #selector(CallViewController.disconnect), with: nil)
         }
         
-        if peer != nil {
-            peer?.disconnect()
-        }
+        peer?.disconnect()
         
         let _ = self.navigationController?.popToRootViewController(animated: true)
     }
@@ -127,7 +122,7 @@ class CallViewController: UIViewController {
     @IBAction func pushCallButton(_ sender: AnyObject) {
         if self.mediaConnection == nil {
             self.getPeerList()
-        }else{
+        } else {
             self.performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
         }
         
@@ -150,9 +145,7 @@ class CallViewController: UIViewController {
             print("Network not reachable")
         }
         
-        if self.peer != nil {
-            peer?.reconnect()
-        }
+        peer?.reconnect()
     }
     
     func setMediaCallbacks(){
@@ -165,7 +158,7 @@ class CallViewController: UIViewController {
                 try session.overrideOutputAudioPort(.speaker)
             } catch {
                 print("override output audio port error")
-            }
+            }*/
             
             DispatchQueue.main.async { () -> Void in
                 let remoteVideoView: SKWVideo = self.view.viewWithTag(ViewTag.tag_REMOTE_VIDEO.hashValue) as! SKWVideo
@@ -218,8 +211,8 @@ class CallViewController: UIViewController {
     // ビデオ通話を開始する
     func call(destId: String) {
         let option = SKWCallOption()
-        mediaConnection = peer!.call(withId: destId, stream: localMedia, options: option)
-        if mediaConnection != nil {
+        if let peer = peer {
+            mediaConnection = peer.call(withId: destId, stream: localMedia, options: option)
             self.setMediaCallbacks()
         }
         self.updateUI()
@@ -227,16 +220,13 @@ class CallViewController: UIViewController {
     
     // ビデオ通話を終了する
     func hangUp(){
-        if mediaConnection != nil{
-            if remoteMedia != nil{
-                let remoteVideoView:SKWVideo = self.view.viewWithTag(ViewTag.tag_REMOTE_VIDEO.hashValue) as! SKWVideo
-                
-                remoteVideoView.removeSrc(remoteMedia, track: 0)
-                remoteMedia?.close()
-                remoteMedia = nil
-            }
-            mediaConnection?.close()
+        if let remoteMedia = remoteMedia {
+            let remoteVideoView: SKWVideo = self.view.viewWithTag(ViewTag.tag_REMOTE_VIDEO.hashValue) as! SKWVideo
+            remoteVideoView.removeSrc(remoteMedia, track: 0)
+            remoteMedia.close()
         }
+        remoteMedia = nil
+        mediaConnection?.close()
         self.updateUI()
     }
     
@@ -251,16 +241,16 @@ class CallViewController: UIViewController {
     
     // 接続を終了する
     func disconnect(){
-        if dataConnection != nil {
-            dataConnection?.close()
-        }
+        dataConnection?.close()
     }
     
     // テキストデータを送信する
     func send(_ data:String){
-        let bResult: Bool = (dataConnection?.send(data as NSObject!))!
-        if bResult {
-            print("[send] \(data)")
+        if let dataConnection = dataConnection {
+            let bResult = dataConnection.send(data as NSObject)
+            if bResult {
+                print("[send] \(data)")
+            }
         }
     }
     
@@ -270,9 +260,9 @@ class CallViewController: UIViewController {
             return
         }
         
-        peer?.listAllPeers({ (peers:[Any]?) -> Void in
+        peer?.listAllPeers({ (peers: [Any]?) -> Void in
             self.peerIds = []
-            let peersArray:[String] = peers as! [String]
+            let peersArray: [String] = peers as! [String]
             for strValue: String in peersArray {
                 if strValue != self.id {
                     self.peerIds.append(strValue)
@@ -311,7 +301,9 @@ class CallViewController: UIViewController {
         
         rcLocal.origin.x = rcScreen.size.width - rcLocal.size.width - 8.0
         rcLocal.origin.y = rcScreen.size.height - rcLocal.size.height - 8.0
-        rcLocal.origin.y -= (self.navigationController?.toolbar.frame.size.height)!
+        if let navigationController = navigationController {
+            rcLocal.origin.y -= navigationController.toolbar.frame.size.height
+        }
         
         let vwVideo: SKWVideo = SKWVideo.init(frame: rcLocal)
         vwVideo.tag = ViewTag.tag_LOCAL_VIDEO.hashValue
@@ -340,16 +332,12 @@ class CallViewController: UIViewController {
             //CALLボタンのアップデート
             if self.mediaConnection == nil {
                 self.callButton.titleLabel?.text = "Call"
-            }else{
+            } else {
                 self.callButton.titleLabel?.text = "Hang up"
             }
             
             //IDラベルのアップデート
-            if self.id == nil {
-                self.idLabel.text = "your Id:"
-            }else{
-                self.idLabel.text = "your Id:" + self.id! as String
-            }
+            self.idLabel.text = "your Id: \(self.id)"
         }
     }
     
