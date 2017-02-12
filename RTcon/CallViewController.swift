@@ -31,11 +31,9 @@ class CallViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        self.callButton.isEnabled = false
+        callButton.isEnabled = false
         
-        if self.navigationController != nil {
-            navigationController?.delegate = self
-        }
+        navigationController?.delegate = self
         
         // サーバへ接続
         // APIキー、ドメインを設定
@@ -105,29 +103,29 @@ class CallViewController: UIViewController {
     @IBAction func onBack(_ sender: UIButton) {
         btConnection?.disconnect()
         
-        if self.mediaConnection != nil {
-            self.performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
+        if mediaConnection != nil {
+            performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
         }
         
-        if self.dataConnection != nil {
-            self.performSelector(inBackground: #selector(CallViewController.disconnect), with: nil)
+        if dataConnection != nil {
+            performSelector(inBackground: #selector(CallViewController.disconnect), with: nil)
         }
         
         peer?.disconnect()
         
-        let _ = self.navigationController?.popToRootViewController(animated: true)
+        let _ = navigationController?.popToRootViewController(animated: true)
     }
     
     // Call ボタン押下時
     @IBAction func pushCallButton(_ sender: AnyObject) {
-        if self.mediaConnection == nil {
-            self.getPeerList()
+        if mediaConnection == nil {
+            getPeerList()
         } else {
-            self.performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
+            performSelector(inBackground: #selector(CallViewController.hangUp), with: nil)
         }
         
         if dataConnection != nil {
-            self.performSelector(inBackground: #selector(CallViewController.disconnect), with: nil)
+            performSelector(inBackground: #selector(CallViewController.disconnect), with: nil)
         }
     }
     
@@ -150,15 +148,15 @@ class CallViewController: UIViewController {
     
     func setMediaCallbacks(){
         // コールバックを登録（Stream）
-        self.mediaConnection?.on(.MEDIACONNECTION_EVENT_STREAM, callback: { (obj: NSObject?) -> Void in
+        mediaConnection?.on(.MEDIACONNECTION_EVENT_STREAM, callback: { (obj: NSObject?) -> Void in
             self.remoteMedia = obj as? SKWMediaStream
             
             let session: AVAudioSession = AVAudioSession.sharedInstance()
             do {
-                try session.overrideOutputAudioPort(.speaker)
+                try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.defaultToSpeaker, .allowBluetooth])
             } catch {
-                print("override output audio port error")
-            }*/
+                print("set audio category error")
+            }
             
             DispatchQueue.main.async { () -> Void in
                 let remoteVideoView: SKWVideo = self.view.viewWithTag(ViewTag.tag_REMOTE_VIDEO.hashValue) as! SKWVideo
@@ -168,7 +166,7 @@ class CallViewController: UIViewController {
         })
         
         // コールバックを登録（Close）
-        self.mediaConnection?.on(.MEDIACONNECTION_EVENT_CLOSE, callback: { (obj: NSObject?) -> Void in
+        mediaConnection?.on(.MEDIACONNECTION_EVENT_CLOSE, callback: { (obj: NSObject?) -> Void in
             self.remoteMedia = obj as? SKWMediaStream
             
             DispatchQueue.main.async { () -> Void in
@@ -185,25 +183,25 @@ class CallViewController: UIViewController {
     
     func setDataCallbacks(){
         // コールバックを登録(チャンネルOPEN)
-        self.dataConnection?.on(.DATACONNECTION_EVENT_OPEN, callback: { (obj: NSObject?) -> Void in
+        dataConnection?.on(.DATACONNECTION_EVENT_OPEN, callback: { (obj: NSObject?) -> Void in
             print("[system] DataConnection opened")
         })
         
         // コールバックを登録(DATA受信)
-        self.dataConnection?.on(.DATACONNECTION_EVENT_DATA, callback: { (obj: NSObject?) -> Void in
+        dataConnection?.on(.DATACONNECTION_EVENT_DATA, callback: { (obj: NSObject?) -> Void in
             let strValue:String = obj as! String
             print("[Partner] \(strValue)")
             self.btConnection?.send(message: strValue)
         })
         
         // コールバックを登録(チャンネルCLOSE)
-        self.dataConnection?.on(.DATACONNECTION_EVENT_CLOSE, callback: { (obj: NSObject?) -> Void in
+        dataConnection?.on(.DATACONNECTION_EVENT_CLOSE, callback: { (obj: NSObject?) -> Void in
             self.dataConnection = nil
             print("[system] DataConnection closed")
             self.updateUI()
         })
         
-        self.btConnection?.read(callback: { (message: String) in
+        btConnection?.read(callback: { (message: String) in
             self.send(message)
         })
     }
@@ -211,23 +209,21 @@ class CallViewController: UIViewController {
     // ビデオ通話を開始する
     func call(destId: String) {
         let option = SKWCallOption()
-        if let peer = peer {
-            mediaConnection = peer.call(withId: destId, stream: localMedia, options: option)
-            self.setMediaCallbacks()
-        }
-        self.updateUI()
+        mediaConnection = peer?.call(withId: destId, stream: localMedia, options: option)
+        setMediaCallbacks()
+        updateUI()
     }
     
     // ビデオ通話を終了する
     func hangUp(){
         if let remoteMedia = remoteMedia {
-            let remoteVideoView: SKWVideo = self.view.viewWithTag(ViewTag.tag_REMOTE_VIDEO.hashValue) as! SKWVideo
+            let remoteVideoView: SKWVideo = view.viewWithTag(ViewTag.tag_REMOTE_VIDEO.hashValue) as! SKWVideo
             remoteVideoView.removeSrc(remoteMedia, track: 0)
             remoteMedia.close()
         }
         remoteMedia = nil
         mediaConnection?.close()
-        self.updateUI()
+        updateUI()
     }
     
     // データチャンネルを開く
@@ -235,7 +231,7 @@ class CallViewController: UIViewController {
         let options = SKWConnectOption()
         options.reliable = true
         
-        self.dataConnection = peer?.connect(withId: destId, options: options)
+        dataConnection = peer?.connect(withId: destId, options: options)
         setDataCallbacks()
     }
     
@@ -286,13 +282,11 @@ class CallViewController: UIViewController {
         DispatchQueue.main.async(execute: {
             self.present(nc, animated: true, completion: nil)
         })
-        
-        //performSegue(withIdentifier: "showPeerList", sender: self)
     }
     
     // UIのセットアップ
     func setupUI(){
-        let rcScreen: CGRect = self.view.bounds
+        let rcScreen: CGRect = view.bounds
         
         //ローカルビデオ用のView
         var rcLocal: CGRect = CGRect.zero
@@ -308,7 +302,7 @@ class CallViewController: UIViewController {
         let vwVideo: SKWVideo = SKWVideo.init(frame: rcLocal)
         vwVideo.tag = ViewTag.tag_LOCAL_VIDEO.hashValue
         vwVideo.isHidden = true
-        self.view.addSubview(vwVideo)
+        view.addSubview(vwVideo)
         
         //リモートビデオ用のView
         var rcRemote: CGRect = CGRect.zero
@@ -322,9 +316,9 @@ class CallViewController: UIViewController {
         let vwRemote: SKWVideo = SKWVideo.init(frame: rcRemote)
         vwRemote.tag = ViewTag.tag_REMOTE_VIDEO.hashValue
         vwRemote.isHidden = true
-        self.view.addSubview(vwRemote)
+        view.addSubview(vwRemote)
         
-        self.updateUI()
+        updateUI()
     }
     
     func updateUI(){
@@ -347,47 +341,6 @@ class CallViewController: UIViewController {
         case tag_REMOTE_VIDEO
         case tag_LOCAL_VIDEO
     }
-    
-    /*
-    func appendLogWithMessage(_ strMessage:String){
-        print("message: \(strMessage)")
-    }
-    */
-    
-    /*
-    func appendLogWithHead(_ strHeader: String?, value strValue: String) {
-        if 0 == strValue.characters.count {
-            return
-        }
-        let mstrValue = NSMutableString()
-        if nil != strHeader {
-            mstrValue.append("[")
-            mstrValue.append(strHeader!)
-            mstrValue.append("] ")
-        }
-        if 32000 < strValue.characters.count {
-            //            var rng:NSRange = NSMakeRange(0, 32)
-            mstrValue.append(strValue.substring(with: (strValue.characters.index(strValue.startIndex, offsetBy: 0) ..< strValue.characters.index(strValue.startIndex, offsetBy: 32))))
-            mstrValue.append("...")
-            //            rng = NSMakeRange(strValue.characters.count - 32, 32)
-            mstrValue.append(strValue.substring(with: (strValue.characters.index(strValue.startIndex, offsetBy: strValue.characters.count - 32) ..< strValue.characters.index(strValue.startIndex, offsetBy: 32))))
-        } else {
-            mstrValue.append(strValue)
-        }
-        mstrValue.append("\n")
-        self.performSelector(onMainThread: #selector(CallViewController.appendLogWithMessage(_:)), with: mstrValue, waitUntilDone: true)
-    }
-    */
-    
-    /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showPeerList" {
-            let vc: PeerListViewController = segue.destination as! PeerListViewController
-            vc.items = peerIds as [AnyObject]?
-            vc.callback = self
-        }
-    }
-    */
 }
 
 extension CallViewController: UINavigationControllerDelegate, UIAlertViewDelegate {
